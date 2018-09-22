@@ -45,6 +45,11 @@ function mapDispatchToProps(dispatch) {
 }
 
 class FoodItemView extends PureComponent {
+    componentDidMount(){
+        setTimeout({
+            
+        })
+    }
 
     render() {
         return (
