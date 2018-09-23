@@ -1,13 +1,10 @@
-'use strict'
+"use strict";
 
-import { Record } from 'immutable'
+import { Record } from "immutable";
 
 var InitialState = Record({
-    searchRefereneceValue: '',
-    sortingDetails: {},
-    errorMessage: '',
-    loaderRunning: false,
-    isBluetoothConnected: false
-})
+  cartItemList: {},
+  loader: false
+});
 
-export default InitialState 
+export default InitialState;

@@ -7,15 +7,16 @@
     "test": "jest"
   },
   "dependencies": {
+    "babel-plugin-transform-remove-console": "6.9.4",
+    "immutable": "3.8.2",
+    "lodash": "4.17.10",
+    "native-base": "2.7.2",
     "react": "16.5.0",
     "react-native": "0.57.1",
-    "babel-plugin-transform-remove-console": "6.9.4",
-    "lodash": "4.17.10",
-    "immutable": "3.8.2",
-    "redux": "4.0.0",
+    "react-native-vector-icons": "^5.0.0",
+    "react-navigation": "2.1.0",
     "react-redux": "5.0.7",
-    "native-base": "2.7.2",
-    "react-navigation": "2.1.0"
+    "redux": "4.0.0"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",

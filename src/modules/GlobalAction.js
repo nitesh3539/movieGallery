@@ -1,3 +1,3 @@
 export function setState(type, payload) {
-    return { type, payload }    
+    return { type, payload }
 }
