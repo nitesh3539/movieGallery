@@ -29,6 +29,30 @@ export default {
     alignCenter: {
         alignItems: 'center'
     },
+    relative: {
+        position: 'relative'
+    },
+    absolute: {
+        position: 'absolute'
+    },
+    shadow: {
+        elevation: 2,
+        shadowOffset: { width: 3, height: 4, },
+        shadowColor: '#d3d3d3',
+        shadowOpacity: .5,
+    },
+    borderRadius3: {
+        borderRadius: 3
+    },
+    padding10: {
+        padding: 10
+    },
+    marginBottom10: {
+        marginBottom: 10
+    },
+    bold: {
+        fontWeight: 'bold'
+    },
     headerLeft: {
         width: '15%',
         paddingTop: 10,
@@ -40,15 +64,13 @@ export default {
         width: '70%',
         paddingTop: 10,
         paddingBottom: 10,
-        paddingLeft: 10,
         paddingRight: 10
     },
     headerRight: {
         width: '15%',
         paddingTop: 10,
         paddingBottom: 10,
-        paddingLeft: 10,
-        paddingRight: 10
+        paddingRight: 15
     },
     header: {
         borderBottomWidth: 0,
@@ -83,5 +105,8 @@ export default {
         alignItems: 'center',
         position: 'absolute',
         bottom: 0
+    },
+    bgWhite: {
+        backgroundColor: '#ffffff'
     },
 }

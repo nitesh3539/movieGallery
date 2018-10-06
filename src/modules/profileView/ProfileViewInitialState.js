@@ -3,7 +3,10 @@
 import { Record } from 'immutable'
 
 var InitialState = Record({
-    foodItemList: [],
+    tymLineList: [],
+    showModalView: false,
+    tymLineTextView: '',
+    tymLineLoader: false
 })
 
 export default InitialState 

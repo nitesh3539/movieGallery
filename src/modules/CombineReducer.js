@@ -1,11 +1,13 @@
 'use strict'
 import { combineReducers } from 'redux'
 
-import FoodItemReducer from './foodItemView/FoodItemReducer'
-import OrderViewReducer from './orderView/OrderViewReducer'
+import profileViewReducers from './profileView/ProfileViewReducer'
+import ProfileDetailsReducer from './profileDetails/ProfileDetailsReducer'
+import loginReducer from './loginForm/LoginReducer'
 
 const rootReducer = combineReducers({
-    FoodItemReducer,
-    OrderViewReducer,
+    profileViewReducers,
+    ProfileDetailsReducer,
+    loginReducer
 })
 export default rootReducer

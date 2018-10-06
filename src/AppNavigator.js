@@ -1,15 +1,16 @@
 import React from 'react'
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
-import FoodItemView from './containers/FoodItemView'
-import OrderView from './containers/OrderView'
-import DeliveryDetails from './containers/DeliveryDetails'
-import PaymentDetails from './containers/PaymentDetails'
-import OrderConfirmation from './containers/OrderConfirmation'
+import ProfileView from './containers/ProfileView'
+import ProfileDetails from './containers/ProfileDetails'
+import LoginForm from './containers/LoginForm'
+import Application from './containers/Application'
 import { setTopLevelNavigator } from './lib/NavigationServices';
+import {  Root } from 'native-base'
 
 class AppWithNavigationState extends React.PureComponent {
   render() {
     return (
+      <Root>
       <AppNavigator
         ref={
           navigatorRef => {
@@ -17,26 +18,25 @@ class AppWithNavigationState extends React.PureComponent {
           }
         }
       />
+      </Root>
     )
   }
 }
-
-const AppNavigator = createStackNavigator({
-  FoodItemView: {
-    screen: FoodItemView,
+const AppNavigator = createSwitchNavigator({
+ApplicationScreen: Application,
+LoginForm: LoginForm,
+AuthRoute : createStackNavigator({
+  ProfileView: {
+    screen: ProfileView,
   },
-  OrderView: {
-    screen: OrderView,
+  ProfileDetails: {
+    screen: ProfileDetails,
   },
-  DeliveryDetails: {
-    screen: DeliveryDetails,
-  },
-  PaymentDetails: {
-    screen: PaymentDetails,
-  },
-  OrderConfirmation: {
-    screen: OrderConfirmation,
-  }
+})
+},{
+  initialRouteName: 'ApplicationScreen',
+  backBehavior: 'none',
+  resetOnBlur: true
 })
 
 export default AppWithNavigationState;
