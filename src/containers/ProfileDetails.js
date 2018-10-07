@@ -186,33 +186,32 @@ class ProfileDetails extends PureComponent {
     }
 
     _onCancelPress() {
-        this.setState({ content: '', title: '', height: 0, editable: false })
         this.props.actions.setState(SET_PROFILE_DETAILS_MODAL, false)
     }
 
     _onPostPress(id) {
         this.props.actions.addNewPostInProfileList(id, this.props.navigation.state.params, this.props.profilePostList, { content: this.state.content, title: this.state.title, editable: this.state.editable })
-        this.setState({ content: '', title: '', height: 0, editable: false })
     }
 
     setModalViewId(id) {
+        this.setState({ content: '', title: '', height: 0, editable: false })
         this.props.actions.setState(SET_PROFILE_DETAILS_MODAL, id)
     }
 
     _footerButton(id) {
         return (
-            <View style={[styles.justifyCenter, styles.alignCenter, { paddingLeft: '35%', paddingRight: '35%' }]}>
+            <TouchableOpacity style={[styles.justifyCenter, styles.alignCenter, { paddingLeft: '35%', paddingRight: '35%' }]}>
                 <SeparatorIcon />
                 <View style={{ position: 'absolute', marginRight: 10 }}>
                     <Button
                         full rounded success
                         onPress={() => this.setModalViewId(id)}
-                        style={{ alignItems: 'center', width: 70, height: 20 }}
+                        style={{ alignItems: 'center', width: 85, height: 23 }}
                     >
                         <Text style={[styles.fontWhite, { fontSize: 10 }]}>Add New Post</Text>
                     </Button>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
 

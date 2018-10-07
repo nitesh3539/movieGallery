@@ -18,11 +18,12 @@ import {
   TouchableOpacity,
   Text,
   Modal,
-  BackHandler
+  BackHandler,
+  Alert
 } from "react-native";
 import { Content, Button, Item, Input, Right, ActionSheet } from "native-base";
 
-import {  SET_MODAL_VIEW, SET_TYMLINE_TEXT, ON_CANCEL_PRESS} from "../lib/Constants";
+import { SET_MODAL_VIEW, SET_TYMLINE_TEXT, ON_CANCEL_PRESS } from "../lib/Constants";
 import styles from "../lib/FeStyle";
 import TitleHeader from "../component/TitleHeader";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -50,26 +51,26 @@ class ProfileView extends PureComponent {
   componentDidMount() {
     this.props.actions.getTymLineProfileList(this.props.navigation.state.params)
     this._didFocusSubscription = this.props.navigation.addListener('didFocus', payload =>
-            BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
-        );
-        this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
-            BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
-        );
+      BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+    );
+    this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
+      BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+    );
   }
   onBackButtonPressAndroid = () => {
     return false
-}
+  }
 
   componentWillUnmount() {
     this._didFocusSubscription && this._didFocusSubscription.remove();
     this._willBlurSubscription && this._willBlurSubscription.remove();
-}
+  }
   static navigationOptions = ({ navigation }) => {
     return { header: null };
   };
 
   pressOnProfile(id) {
-    navigate("ProfileDetails", { profileId : id, profileListObject: this.props.tymLineList , userId : this.props.navigation.state.params.userId});
+    navigate("ProfileDetails", { profileId: id, profileListObject: this.props.tymLineList, userId: this.props.navigation.state.params.userId });
   }
 
   _itemButtonView(item) {
@@ -87,9 +88,9 @@ class ProfileView extends PureComponent {
     );
   }
 
-  _showActionSheet(id){
+  _showActionSheet(id) {
     let BUTTONS = []
-    BUTTONS.push('Edit','Delete','Cancel')
+    BUTTONS.push('Edit', 'Delete', 'Cancel')
     ActionSheet.show(
       {
         options: BUTTONS,
@@ -103,34 +104,40 @@ class ProfileView extends PureComponent {
     )
   }
 
-  onActionSheetPress(button, id){
-    if(button == 'Edit'){
-      this.props.actions.setState(SET_MODAL_VIEW, id) 
-    }else if(button == 'Delete'){
-      this.props.actions.deleteProfileFormList(id, this.props.navigation.state.params.userId)
+  onActionSheetPress(button, id) {
+    if (button == 'Edit') {
+      this.props.actions.setState(SET_MODAL_VIEW, id)
+    } else if (button == 'Delete') {
+      Alert.alert(
+        'Deleting Profile',
+        'Are you sure you want to Delete this profile?',
+        [{ text: 'Cancel', style: 'cancel' },
+        { text: 'Delete', onPress: () => this.props.actions.deleteProfileFormList(id, this.props.navigation.state.params.userId) }],
+        { cancelable: false }
+      )
     }
   }
 
   renderData(item) {
     return (
-      <TouchableOpacity 
+      <TouchableOpacity
         style={[styles.justifyCenter, styles.alignCenter, { borderBottomColor: "#e4e4e4", borderBottomWidth: 1, }]}
-        onPress = {() => this.pressOnProfile(item.id)}
-        >
+        onPress={() => this.pressOnProfile(item.id)}
+      >
         <Image
           style={[{ width: '72%', height: 300, resizeMode: "cover", margin: 50 }]}
           source={require('../images/travel.jpg')} />
-        <Right style={{ position: 'absolute', top: 0, left: 0, right: 0, margin : 60}}>
-        <TouchableOpacity onPress = {() => {this._showActionSheet(item.id)}}>
-        <MaterialIcons
-            name={'more-vert'}
-            style={[
-              styles.fontWhite,
-              {fontSize : 25},
-            ]}
-          />   
-          </TouchableOpacity>     
-          </Right>
+        <Right style={{ position: 'absolute', top: 0, left: 0, right: 0, margin: 60 }}>
+          <TouchableOpacity onPress={() => { this._showActionSheet(item.id) }}>
+            <MaterialIcons
+              name={'more-vert'}
+              style={[
+                styles.fontWhite,
+                { fontSize: 25 },
+              ]}
+            />
+          </TouchableOpacity>
+        </Right>
         <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 370, alignItems: 'center', justifyContent: 'center' }}>
           <Text style={[styles.fontWhite, { fontSize: 30 }]}>{item.name}</Text>
         </View>
@@ -163,7 +170,7 @@ class ProfileView extends PureComponent {
                     onChangeText={(text) => { this.props.actions.setState(SET_TYMLINE_TEXT, text) }}
                     style={{ height: 40, fontSize: 13 }}
                     keyboardType='default'
-                    value={_.size(this.props.tymLineTextView) ? this.props.tymLineTextView : Number.isInteger(this.props.showModalView) ? this.props.tymLineList[this.props.showModalView].name : '' }
+                    value={_.size(this.props.tymLineTextView) ? this.props.tymLineTextView : Number.isInteger(this.props.showModalView) ? this.props.tymLineList[this.props.showModalView].name : ''}
                     returnKeyType='done' />
                 </Item>
               </View>
@@ -212,17 +219,26 @@ class ProfileView extends PureComponent {
       </View>
     )
   }
-  signOut = () => {this.props.actions.onLogoutPress()}
+
+  signOut = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to Logout?',
+      [{ text: 'Cancel', style: 'cancel' },
+      { text: 'Ok', onPress: () => this.props.actions.onLogoutPress() }],
+      { cancelable: false }
+    )
+  }
 
   render() {
     let modalDialogView = this.modalDialogView()
-     console.log("tymLineList",this.props.tymLineList)
+    console.log("tymLineList", this.props.tymLineList)
     return (
       <Content style={{ backgroundColor: "#fff", position: 'relative' }}>
         <TitleHeader
           pageName={"TymLine"}
           goBack={() => this.props.navigation.goBack(null)}
-          onLogoutPress = {this.signOut}
+          onLogoutPress={this.signOut}
         />
         {modalDialogView}
         <View>{this.addNewTymLinePage()}</View>
