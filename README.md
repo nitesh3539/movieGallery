@@ -1,4 +1,4 @@
-# TymLine App
+# MovieGallery App
 
 ------------------------------------------------
       How to Run?
@@ -7,8 +7,8 @@
 **make sure your current node version will be greater than 8.12.0 or greater
 
 Clone & instal
-   Clone this repo git clone https://github.com/nitesh3539/tymlineApp.git
-   cd tymLineApp
+   Clone this repo git clone https://github.com/nitesh3539/MovieGallery.git
+   cd MovieGallery
    run npm install
 
 iOS
@@ -21,5 +21,3 @@ Android
 ------------------------------------------------
       App preview
 ------------------------------------------------
-
-![](tymLine_login.gif)

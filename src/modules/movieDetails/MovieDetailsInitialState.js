@@ -3,8 +3,7 @@
 import { Record } from "immutable";
 
 var InitialState = Record({
-  profilePostList : [],
-  showDetailsModalView: false,
+  movieDetailsList : [],
   loader: false
 });
 
